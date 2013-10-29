@@ -46,9 +46,14 @@ void
 ARMBaseCompilerConfig::GetFeatureVector(std::vector<std::string> &pAttributes,
                                         bool pInThumbMode, bool pEnableNEON) {
 #if defined(ARCH_ARM_HAVE_VFP)
+#  if defined(TARGET_CPU_VARIANT_ARM11)
+  pAttributes.push_back("+vfp2");
+  pAttributes.push_back("-d16");
+#  else
   pAttributes.push_back("+vfp3");
-#  if !defined(ARCH_ARM_HAVE_VFP_D32)
+#    if !defined(ARCH_ARM_HAVE_VFP_D32)
   pAttributes.push_back("+d16");
+#    endif
 #  endif
 #endif
 
