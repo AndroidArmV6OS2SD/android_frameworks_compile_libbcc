@@ -56,6 +56,10 @@ ifeq ($(TARGET_ARCH),mips64)
 $(info TODOMips64: $(LOCAL_PATH)/Android.mk Add Mips64 define to LOCAL_CFLAGS)
 endif
 
+ifeq ($(TARGET_CPU_VARIANT),arm11)
+LOCAL_CFLAGS += -DTARGET_CPU_VARIANT_ARM11
+endif
+
 include frameworks/compile/libbcc/libbcc-targets.mk
 
 LOCAL_C_INCLUDES := \

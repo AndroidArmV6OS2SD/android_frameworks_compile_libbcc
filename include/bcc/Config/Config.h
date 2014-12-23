@@ -73,8 +73,13 @@
   #endif
 #endif
 
-#define DEFAULT_ARM_TRIPLE_STRING      "armv7-none-linux-gnueabi"
-#define DEFAULT_THUMB_TRIPLE_STRING    "thumbv7-none-linux-gnueabi"
+#if defined(TARGET_CPU_VARIANT_ARM11)
+  #define DEFAULT_ARM_TRIPLE_STRING      "armv6-none-linux-gnueabi"
+  #define DEFAULT_THUMB_TRIPLE_STRING    "thumbv6-none-linux-gnueabi"
+#else
+  #define DEFAULT_ARM_TRIPLE_STRING      "armv7-none-linux-gnueabi"
+  #define DEFAULT_THUMB_TRIPLE_STRING    "thumbv7-none-linux-gnueabi"
+#endif
 #define DEFAULT_ARM64_TRIPLE_STRING    "aarch64-none-linux-gnueabi"
 #define DEFAULT_MIPS_TRIPLE_STRING     "mipsel-none-linux-gnueabi"
 #define DEFAULT_MIPS64_TRIPLE_STRING   "mips64el-none-linux-gnueabi"

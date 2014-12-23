@@ -104,12 +104,17 @@ bool CompilerConfig::initializeArch() {
     llvm::sys::getHostCPUFeatures(features);
     std::vector<std::string> attributes;
 
+#if (defined(__HOST__) || defined(ARCH_ARM_HAVE_VFP)) && defined(TARGET_CPU_VARIANT_ARM11)
+    attributes.push_back("+vfp2");
+    attributes.push_back("-d16");
+#else
 #if defined(__HOST__) || defined(ARCH_ARM_HAVE_VFP)
     attributes.push_back("+vfp3");
 #if !defined(__HOST__) && !defined(ARCH_ARM_HAVE_VFP_D32)
     attributes.push_back("+d16");
 #endif  // !__HOST__ && !ARCH_ARM_HAVE_VFP_D32
 #endif  // __HOST__ || ARCH_ARM_HAVE_VFP
+#endif  // (__HOST__ || ARCH_ARM_HAVE_VFP) && TARGET_CPU_VARIANT_ARM11
 
 #if defined(__HOST__) || defined(ARCH_ARM_HAVE_NEON)
     // Only enable NEON on ARM if we have relaxed precision floats.
